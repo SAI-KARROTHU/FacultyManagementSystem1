@@ -1,5 +1,3 @@
-<!-- 2. navigation.jsp - Navigation Bar with Session Info -->
-<!-- ============================================================ -->
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
     String staffId = (String) session.getAttribute("staffId");
@@ -33,7 +31,7 @@
             <li class="nav-user">
                 Welcome, <%= name != null ? name : staffId %>
             </li>
-            <li><a href="logout" class="btn-logout">Logout</a></li>
+            <li><a href="LogoutServlet" class="btn-logout">Logout</a></li>
         </ul>
     </div>
 </nav>

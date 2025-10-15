@@ -8,7 +8,7 @@
     <display-name>Faculty Management System</display-name>
     
     <welcome-file-list>
-        <welcome-file>login.html</welcome-file>
+        <welcome-file>login.jsp</welcome-file>
     </welcome-file-list>
     
     <!-- Session Configuration -->
@@ -47,75 +47,15 @@
         <url-pattern>/deleteFaculty</url-pattern>
     </filter-mapping>
     
-    <!-- Login Servlet -->
-    <servlet>
-        <servlet-name>LoginServlet</servlet-name>
-        <servlet-class>com.example.fms.servlets.LoginServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>LoginServlet</servlet-name>
-        <url-pattern>/login</url-pattern>
-    </servlet-mapping>
-    
-    <!-- Add Faculty Servlet -->
-    <servlet>
-        <servlet-name>AddFacultyServlet</servlet-name>
-        <servlet-class>com.example.fms.servlets.AddFacultyServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>AddFacultyServlet</servlet-name>
-        <url-pattern>/addFaculty</url-pattern>
-    </servlet-mapping>
-    
-    <!-- View Faculty Servlet -->
-    <servlet>
-        <servlet-name>ViewFacultyServlet</servlet-name>
-        <servlet-class>com.example.fms.servlets.ViewFacultyServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>ViewFacultyServlet</servlet-name>
-        <url-pattern>/viewFaculty</url-pattern>
-    </servlet-mapping>
-    
-    <!-- Update Faculty Servlet -->
-    <servlet>
-        <servlet-name>UpdateFacultyServlet</servlet-name>
-        <servlet-class>com.example.fms.servlets.UpdateFacultyServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>UpdateFacultyServlet</servlet-name>
-        <url-pattern>/updateFaculty</url-pattern>
-    </servlet-mapping>
-    
-    <!-- Delete Faculty Servlet -->
-    <servlet>
-        <servlet-name>DeleteFacultyServlet</servlet-name>
-        <servlet-class>com.example.fms.servlets.DeleteFacultyServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>DeleteFacultyServlet</servlet-name>
-        <url-pattern>/deleteFaculty</url-pattern>
-    </servlet-mapping>
-    
-    <!-- Logout Servlet -->
-    <servlet>
-        <servlet-name>LogoutServlet</servlet-name>
-        <servlet-class>com.example.fms.servlets.LogoutServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>LogoutServlet</servlet-name>
-        <url-pattern>/logout</url-pattern>
-    </servlet-mapping>
-    
     <!-- Error Pages -->
     <error-page>
         <error-code>404</error-code>
-        <location>/error.jsp</location>
+        <location>/login.jsp</location>
     </error-page>
     
     <error-page>
         <error-code>500</error-code>
-        <location>/error.jsp</location>
+        <location>/login.jsp</location>
     </error-page>
     
 </web-app>

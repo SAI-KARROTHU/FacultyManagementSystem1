@@ -12,22 +12,21 @@
             <h2>Faculty Management System</h2>
             <h3>Login</h3>
             
-            <% if (request.getParameter("error") != null) { %>
+            <% if (request.getAttribute("error") != null) { %>
                 <div class="alert alert-error">
-                    <%= request.getParameter("error") %>
+                    <%= request.getAttribute("error") %>
                 </div>
             <% } %>
             
             <form action="LoginServlet" method="post">
                 <div class="form-group">
                     <label for="staffId">Staff ID:</label>
-                    <input type="text" id="staffId" name="staffId" required>
+                    <input type="text" id="staffId" name="staffId" required autofocus>
                 </div>
                 
                 <div class="form-group">
                     <label for="password">Password:</label>
                     <input type="password" id="password" name="password" required>
-                    <small>Note: Password must be same as Staff ID</small>
                 </div>
                 
                 <div class="form-group">

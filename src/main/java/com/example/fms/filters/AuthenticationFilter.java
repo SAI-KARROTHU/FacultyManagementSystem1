@@ -1,6 +1,3 @@
-// ============================================================
-// 2. AuthenticationFilter.java - Session & Cookie Validation
-// ============================================================
 package com.example.fms.filters;
 
 import java.io.IOException;
@@ -21,9 +18,10 @@ public class AuthenticationFilter implements Filter {
         
         String uri = httpRequest.getRequestURI();
         
-        // Allow access to login page and static resources
-        if (uri.endsWith("login.jsp") || uri.endsWith("/login") || 
-        	    uri.endsWith(".css") || uri.endsWith(".js") || uri.endsWith(".png")) {
+        // Allow access to login page, logout servlet and static resources
+        if (uri.endsWith("login.jsp") || uri.endsWith("/LoginServlet") || 
+            uri.endsWith("/LogoutServlet") || uri.endsWith("login.html") ||
+            uri.endsWith(".css") || uri.endsWith(".js") || uri.endsWith(".png")) {
             chain.doFilter(request, response);
             return;
         }
@@ -37,10 +35,13 @@ public class AuthenticationFilter implements Filter {
             Cookie[] cookies = httpRequest.getCookies();
             if (cookies != null) {
                 String staffId = null;
+                String name = null;
+                
                 for (Cookie cookie : cookies) {
                     if (cookie.getName().equals("staffId")) {
                         staffId = cookie.getValue();
-                        break;
+                    } else if (cookie.getName().equals("name")) {
+                        name = cookie.getValue();
                     }
                 }
                 
@@ -48,6 +49,8 @@ public class AuthenticationFilter implements Filter {
                     // Auto-login from cookie
                     HttpSession newSession = httpRequest.getSession();
                     newSession.setAttribute("staffId", staffId);
+                    newSession.setAttribute("name", name != null ? name : "Admin User");
+                    newSession.setAttribute("email", "admin@faculty.edu");
                     newSession.setMaxInactiveInterval(30 * 60);
                     httpRequest.changeSessionId();
                     isLoggedIn = true;
@@ -58,7 +61,7 @@ public class AuthenticationFilter implements Filter {
         if (isLoggedIn) {
             chain.doFilter(request, response);
         } else {
-            httpResponse.sendRedirect("login.html");
+            httpResponse.sendRedirect(httpRequest.getContextPath() + "/login.jsp");
         }
     }
     

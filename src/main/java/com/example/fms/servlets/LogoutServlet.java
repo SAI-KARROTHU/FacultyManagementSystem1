@@ -1,7 +1,6 @@
 package com.example.fms.servlets;
 
 import java.io.IOException;
-import java.net.URLEncoder;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
@@ -24,23 +23,22 @@ public class LogoutServlet extends HttpServlet {
             session.invalidate();
         }
 
-        // Remove cookies safely
+        // Remove cookies
         Cookie[] cookies = request.getCookies();
         if (cookies != null) {
             for (Cookie cookie : cookies) {
                 String name = cookie.getName();
                 if ("staffId".equals(name) || "name".equals(name)) {
-                    // Encode the value to avoid invalid characters
-                    cookie.setValue(URLEncoder.encode("", "UTF-8"));
+                    cookie.setValue("");
                     cookie.setMaxAge(0); // delete cookie
-                    cookie.setPath("/"); // apply to whole app
+                    cookie.setPath("/");
                     response.addCookie(cookie);
                 }
             }
         }
 
         // Redirect to login page
-        response.sendRedirect("login.jsp");
+        response.sendRedirect(request.getContextPath() + "/login.jsp");
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
