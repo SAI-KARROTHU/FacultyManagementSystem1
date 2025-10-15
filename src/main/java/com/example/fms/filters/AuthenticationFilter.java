@@ -22,8 +22,8 @@ public class AuthenticationFilter implements Filter {
         String uri = httpRequest.getRequestURI();
         
         // Allow access to login page and static resources
-        if (uri.endsWith("login.html") || uri.endsWith("/login") || 
-            uri.endsWith(".css") || uri.endsWith(".js") || uri.endsWith(".png")) {
+        if (uri.endsWith("login.jsp") || uri.endsWith("/login") || 
+        	    uri.endsWith(".css") || uri.endsWith(".js") || uri.endsWith(".png")) {
             chain.doFilter(request, response);
             return;
         }
@@ -48,6 +48,8 @@ public class AuthenticationFilter implements Filter {
                     // Auto-login from cookie
                     HttpSession newSession = httpRequest.getSession();
                     newSession.setAttribute("staffId", staffId);
+                    newSession.setMaxInactiveInterval(30 * 60);
+                    httpRequest.changeSessionId();
                     isLoggedIn = true;
                 }
             }

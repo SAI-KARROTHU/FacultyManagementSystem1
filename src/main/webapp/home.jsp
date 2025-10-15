@@ -1,6 +1,12 @@
-<!-- 3. home.jsp - Dashboard with Session Display -->
-<!-- ============================================================ -->
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="javax.servlet.http.Cookie, java.net.URLDecoder, java.util.Date" %>
+<%
+    // Check if session exists, redirect to login if not
+    if (session.getAttribute("staffId") == null) {
+        response.sendRedirect("login.jsp");
+        return;
+    }
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,8 +27,8 @@
                 <p><strong>Name:</strong> <%= session.getAttribute("name") %></p>
                 <p><strong>Email:</strong> <%= session.getAttribute("email") %></p>
                 <p><strong>Session ID:</strong> <%= session.getId() %></p>
-                <p><strong>Session Created:</strong> <%= new java.util.Date(session.getCreationTime()) %></p>
-                <p><strong>Last Accessed:</strong> <%= new java.util.Date(session.getLastAccessedTime()) %></p>
+                <p><strong>Session Created:</strong> <%= new Date(session.getCreationTime()) %></p>
+                <p><strong>Last Accessed:</strong> <%= new Date(session.getLastAccessedTime()) %></p>
             </div>
             
             <div class="dashboard-cards">
@@ -40,12 +46,12 @@
             </div>
             
             <%
-                // Display cookie information if available
+                // Display cookie information safely
                 Cookie[] cookies = request.getCookies();
                 if (cookies != null) {
                     boolean hasCookies = false;
                     for (Cookie cookie : cookies) {
-                        if (cookie.getName().equals("staffId") || cookie.getName().equals("name")) {
+                        if ("staffId".equals(cookie.getName()) || "name".equals(cookie.getName())) {
                             hasCookies = true;
                             break;
                         }
@@ -57,9 +63,10 @@
                             <h3>Cookie Information (Remember Me Active)</h3>
                             <%
                                 for (Cookie cookie : cookies) {
-                                    if (cookie.getName().equals("staffId") || cookie.getName().equals("name")) {
+                                    if ("staffId".equals(cookie.getName()) || "name".equals(cookie.getName())) {
+                                        String value = URLDecoder.decode(cookie.getValue(), "UTF-8");
                             %>
-                                        <p><strong><%= cookie.getName() %>:</strong> <%= cookie.getValue() %></p>
+                                        <p><strong><%= cookie.getName() %>:</strong> <%= value %></p>
                             <%
                                     }
                                 }

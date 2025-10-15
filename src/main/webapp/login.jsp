@@ -1,6 +1,4 @@
-<!-- ============================================================ -->
-<!-- 1. login.html - Login Page with Remember Me -->
-<!-- ============================================================ -->
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,11 +11,14 @@
         <div class="login-box">
             <h2>Faculty Management System</h2>
             <h3>Login</h3>
-                <div class="alert alert-error">
-             
-                </div>
             
-            <form action="login" method="post">
+            <% if (request.getParameter("error") != null) { %>
+                <div class="alert alert-error">
+                    <%= request.getParameter("error") %>
+                </div>
+            <% } %>
+            
+            <form action="LoginServlet" method="post">
                 <div class="form-group">
                     <label for="staffId">Staff ID:</label>
                     <input type="text" id="staffId" name="staffId" required>

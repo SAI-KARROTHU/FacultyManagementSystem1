@@ -8,11 +8,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 public class LoginServlet extends HttpServlet {
     private static final String DB_URL = "jdbc:mysql://localhost:3306/FacultyDB";
     private static final String DB_USER = "root";
-    private static final String DB_PASSWORD = "password";
+    private static final String DB_PASSWORD = "12345678";
     
     protected void doPost(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException {
@@ -61,7 +60,7 @@ public class LoginServlet extends HttpServlet {
             } else {
                 // Failed login
                 request.setAttribute("error", "Invalid Staff ID or Password");
-                request.getRequestDispatcher("login.html").forward(request, response);
+                request.getRequestDispatcher("login.jsp").forward(request, response);
             }
             
         } catch (Exception e) {
